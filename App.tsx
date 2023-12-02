@@ -1,25 +1,29 @@
-import { useState } from "react";
-import { useColorScheme } from "react-native";
 import { Stack, TamaguiProvider, Text } from "tamagui";
 import { Switch } from "tamagui";
+import { useState } from "react";
 
 import config from "./tamagui.config";
 
 export default function App() {
 	const [connected, setConnected] = useState(false);
-	const scheme = useColorScheme();
 
 	return (
-		<TamaguiProvider config={config} defaultTheme={scheme}>
+		<TamaguiProvider config={config}>
 			<Stack
 				display="flex"
 				justifyContent="center"
 				alignItems="center"
 				w="100%"
+				h="100%"
+				backgroundColor="$color.gray3Dark"
 			>
-				<Text fontSize="$11">Fake VPN</Text>
+				<Text fontSize="$11" color="white">
+					Fake VPN
+				</Text>
 				<Switch
 					size="$7"
+					m="10%"
+					borderColor="$colorTransparent"
 					backgroundColor={connected ? "red" : "gray"}
 					onCheckedChange={() => setConnected(!connected)}
 				>
@@ -27,8 +31,18 @@ export default function App() {
 				</Switch>
 
 				<Stack alignItems="center">
-					<Text>{connected ? "Connected" : "Disconnected"}</Text>
-					<Text>Your Internet is {connected ? "secure" : "insecure"}</Text>
+					<Text color={connected ? "red" : "white"}>
+						{connected ? "Connected" : "Disconnected"}
+					</Text>
+
+					<Stack display="flex" flexDirection="row" mt="5%">
+						<Text mr={5} color="white">
+							Your Internet is
+						</Text>
+						<Text color={connected ? "red" : "white"}>
+							{connected ? "secure" : "insecure"}
+						</Text>
+					</Stack>
 				</Stack>
 			</Stack>
 		</TamaguiProvider>
