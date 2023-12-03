@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Stack, TamaguiProvider, Text } from "tamagui";
 import { Switch } from "tamagui";
-import { useState } from "react";
+import * as Haptics from "expo-haptics";
 
 import config from "./tamagui.config";
 
@@ -25,7 +26,13 @@ export default function App() {
 					m="10%"
 					borderColor="$colorTransparent"
 					backgroundColor={connected ? "red" : "gray"}
-					onCheckedChange={() => setConnected(!connected)}
+					onCheckedChange={() => {
+						setConnected(!connected);
+
+						Haptics.notificationAsync(
+							Haptics.NotificationFeedbackType.Success
+						);
+					}}
 				>
 					<Switch.Thumb animation="quick" backgroundColor="white" size="$6" />
 				</Switch>
